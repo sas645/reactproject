@@ -1,0 +1,37 @@
+.user-authentication {
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .user-authentication h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .user-authentication input {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .user-authentication button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .user-authentication button:hover {
+    background-color: #0056b3;
+  }
+  

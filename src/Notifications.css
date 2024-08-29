@@ -1,0 +1,52 @@
+.notification-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background-color: #e65c55;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-out 4.7s forwards;
+}
+
+.notification-popup h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.notification-section h4 {
+  margin: 10px 0 5px;
+  font-size: 1.2em;
+}
+
+.notification-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.notification-section li {
+  margin-bottom: 5px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

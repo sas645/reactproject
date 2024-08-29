@@ -1,0 +1,24 @@
+.shopping-cart {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .shopping-cart h2 {
+    margin-bottom: 20px;
+  }
+  
+  .shopping-cart ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .shopping-cart li {
+    margin-bottom: 10px;
+  }
+  
+  .shopping-cart h3 {
+    margin-top: 20px;
+  }
+  

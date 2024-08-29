@@ -1,0 +1,47 @@
+.login-page {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-page h2 {
+  margin-bottom: 20px;
+  color: #ff6f61; /* Coral heading */
+}
+
+.login-page form div {
+  margin-bottom: 15px;
+}
+
+.login-page label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.login-page input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-page button {
+  width: 100%;
+  padding: 10px;
+  background-color: #20b2aa; /* Turquoise button */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.login-page button:hover {
+  background-color: #1e9e92; /* Slightly darker turquoise */
+}
