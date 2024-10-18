@@ -1,57 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import './Notifications.css';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
-const Notifications = ({ inventoryData, salesData }) => {
-  const [lowStockItems, setLowStockItems] = useState([]);
-  const [salesAlerts, setSalesAlerts] = useState([]);
-  const [showNotification, setShowNotification] = useState(false);
+function Notifications() {
+  const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    const lowStock = inventoryData.filter(item => item.stock < 5);
-    setLowStockItems(lowStock);
-
-    const newSales = salesData.slice(-5); // Get last 5 sales
-    setSalesAlerts(newSales);
-
-    if (lowStock.length > 0 || newSales.length > 0) {
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 55000); // Auto-hide after 5 seconds
-    }
-  }, [inventoryData, salesData]);
+  const addNotification = (message) => {
+    setNotifications([...notifications, message]);
+    setTimeout(() => setNotifications(notifications.filter((_, i) => i !== 0)), 3000);
+  };
 
   return (
-    <>
-      {showNotification && (
-        <div className="notification-popup">
-          <h3>Notifications</h3>
-          {lowStockItems.length > 0 && (
-            <div className="notification-section">
-              <h4>Low Stock Items</h4>
-              <ul>
-                {lowStockItems.map((item, index) => (
-                  <li key={index}>
-                    {item.name}: Only {item.stock} left!
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {salesAlerts.length > 0 && (
-            <div className="notification-section">
-              <h4>Recent Sales</h4>
-              <ul>
-                {salesAlerts.map((sale, index) => (
-                  <li key={index}>
-                    {sale.name} sold for ${sale.amount.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-    </>
+    <div>
+      {notifications.map((note, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            position: 'fixed',
+            top: 10 * index,
+            right: 10,
+            backgroundColor: '#fffae5',
+            border: '1px solid #f5d300',
+            borderRadius: 5,
+            padding: 10,
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            zIndex: 1000
+          }}
+        >
+          {note}
+        </motion.div>
+      ))}
+    </div>
   );
-};
+}
 
 export default Notifications;

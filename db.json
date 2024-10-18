@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": "4e24",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "c52f",
+      "email": "admin@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "2fd4",
+      "email": "teja@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "8378",
+      "email": "ad@gmail.com",
+      "password": "password"
+    }
+  ]
+}
