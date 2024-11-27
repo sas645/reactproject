@@ -392,3 +392,94 @@ function App() {
 }
 
 export default App;
+/*import React, { useState } from 'react';
+import './App.css';
+import Dashboard from './Dashboard';
+import InventoryForm from './InventoryForm';
+import SearchFilter from './SearchFilter';
+import LoginPage from './LoginPage';
+import Notifications from './Notifications';
+import SignupPage from './SignupPage'; // Import the SignupPage component
+import axios from 'axios'; // Import axios
+
+function App() {
+  const [view, setView] = useState('login'); // Default to login
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // To track user authentication
+
+  // Render different views based on state
+  const renderView = () => {
+    if (!isAuthenticated) {
+      switch (view) {
+        case 'login':
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+        case 'signup':
+          return <SignupPage handleSignup={handleSignup} />;
+        default:
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+      }
+    }
+
+    // If authenticated, show the app views
+    switch (view) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'inventoryForm':
+        return <InventoryForm />;
+      case 'searchFilter':
+        return <SearchFilter />;
+      case 'notifications':
+        return <Notifications />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
+  // Handle login logic
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users?email=${email}&password=${password}`);
+      if (response.data.length > 0) {
+        setIsAuthenticated(true);
+        setView('dashboard');
+      } else {
+        alert('Invalid credentials. Please try again or sign up.');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  };
+
+  // Handle signup logic
+  const handleSignup = async (email, password) => {
+    try {
+      // Post the user data to the server (assume a POST endpoint exists)
+      await axios.post('http://localhost:5000/users', { email, password });
+      alert('Signup successful! Please log in.');
+      setView('login'); // Navigate to the login page after signup
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Signup failed. Please try again.');
+    }
+  };
+
+  return (
+    <div className="App">
+      <header>
+        <h1>Supermarket Management System</h1>
+        {isAuthenticated && (
+          <nav>
+            <button onClick={() => setView('dashboard')}>Dashboard</button>
+            <button onClick={() => setView('inventoryForm')}>Inventory Form</button>
+            <button onClick={() => setView('searchFilter')}>Search & Filter</button>
+            <button onClick={() => setView('notifications')}>Notifications</button>
+          </nav>
+        )}
+      </header>
+      <main>
+        {renderView()}
+      </main>
+    </div>
+  );
+}
+
+export default App;*/

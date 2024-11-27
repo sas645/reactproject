@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function SearchFilter({ products, onFilter }) {
+function SearchFilter() {
+  const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    onFilter(e.target.value);
-  };
+  useEffect(() => {
+    axios.get('http://localhost:5000/products')
+      .then((response) => setProducts(response.data))
+      .catch((error) => console.error('Error:', error));
+  }, []);
+
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      <label>Search:</label>
+      <h2>Search & Filter</h2>
       <input
         type="text"
-        value={searchTerm}
-        onChange={handleSearch}
         placeholder="Search products..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <ul>
+        {filteredProducts.map((product) => (
+          <li key={product.id}>
+            {product.productName} - {product.quantity} in stock, ${product.price}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -60,7 +60,7 @@
 
 // export default LoginPage;
 
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import './LoginPage.css';  // Add this if you created a separate CSS file
 
 function LoginPage({ handleLogin, goToSignup }) {
@@ -97,4 +97,42 @@ function LoginPage({ handleLogin, goToSignup }) {
   );
 }
 
+export default LoginPage;*/
+import React, { useState } from 'react';
+
+function LoginPage({ handleLogin, goToSignup }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(email, password);
+  };
+
+  return (
+    <div className="App">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Email: </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label>Password: </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      <p>New user? <a href="#" onClick={goToSignup}>Sign up here</a></p>
+    </div>
+  );
+}
+
 export default LoginPage;
+
