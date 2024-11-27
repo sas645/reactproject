@@ -266,88 +266,220 @@ const App = () => {
 };
 
 export default App;*/
+// import React, { useState } from 'react';
+// import './App.css';
+// import Dashboard from './Dashboard';
+// import InventoryForm from './InventoryForm';
+// import SearchFilter from './SearchFilter';
+// import LoginPage from './LoginPage';
+// import Notifications from './Notifications';
+
+// function App() {
+//   const [view, setView] = useState('dashboard');
+
+//   const renderView = () => {
+//     switch(view) {
+//       case 'dashboard':
+//         return <Dashboard />;
+//       case 'inventoryForm':
+//         return <InventoryForm />;
+//       case 'searchFilter':
+//         return <SearchFilter />;
+//       case 'loginPage':
+//         return <LoginPage />;
+//       case 'notifications':
+//         return <Notifications />;
+//       default:
+//         return <Dashboard />;
+//     }
+//   };
+
+//   return (
+//     <div className="App">
+//       <header>
+//         <h1>Supermarket Management System</h1>
+//         <nav>
+//           <button onClick={() => setView('dashboard')}>Dashboard</button>
+//           <button onClick={() => setView('inventoryForm')}>Inventory Form</button>
+//           <button onClick={() => setView('searchFilter')}>Search & Filter</button>
+//           <button onClick={() => setView('login')}>Login</button>
+//           <button onClick={() => setView('notifications')}>Notifications</button>
+//         </nav>
+//       </header>
+//       <main>
+//         {renderView()}
+//       </main>
+//     </div>
+//   );
+// }
+
+// export default App;
 import React, { useState } from 'react';
-import Dashboard from './Dashboard';
-import ProductList from './ProductList';
-import InventoryForm from './InventoryForm';
-import ShoppingCart from './ShoppingCart';
-import Notifications from './Notifications';
-import SearchBar from './SearchBar';
-import LoginPage from './LoginPage';
 import './App.css';
+import Dashboard from './Dashboard';
+import InventoryForm from './InventoryForm';
+import SearchFilter from './SearchFilter';
+import LoginPage from './LoginPage';
+import Notifications from './Notifications';
+import SignupPage from './SignupPage'; // Import the SignupPage component
+import axios from 'axios'; // Import axios
 
-const App = () => {
-  const [page, setPage] = useState('Dashboard');
-  const [cart, setCart] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [products, setProducts] = useState([
-    { name: 'Apple', price: 1.0, stock: 10, category: 'Fruits' },
-    { name: 'Milk', price: 2.5, stock: 20, category: 'Dairy' },
-    { name: 'Bread', price: 2.0, stock: 15, category: 'Bakery' },
-    // Add more example products here
-  ]);
-  const [salesData, setSalesData] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function App() {
+  const [view, setView] = useState('login'); // Default to login
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // To track user authentication
 
-  const addToCart = (product) => {
-    if (product.stock > 0) {
-      setCart([...cart, product]);
-      setSalesData([...salesData, { name: product.name, amount: product.price }]);
-      setProducts(products.map(p => p.name === product.name ? { ...p, stock: p.stock - 1 } : p));
+  // Render different views based on state
+  const renderView = () => {
+    if (!isAuthenticated) {
+      switch(view) {
+        case 'login':
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+        case 'signup':
+          return <SignupPage goToLogin={() => setView('login')} />;
+        default:
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+      }
+    }
+
+    // If authenticated, show the app views
+    switch(view) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'inventoryForm':
+        return <InventoryForm />;
+      case 'searchFilter':
+        return <SearchFilter />;
+      case 'notifications':
+        return <Notifications />;
+      default:
+        return <Dashboard />;
     }
   };
 
-  const addProduct = (newProduct) => {
-    setProducts([...products, newProduct]);
-  };
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-  };
-
-  const handleLogin = (username, password) => {
-    // For simplicity, we'll use a hardcoded username and password
-    if (username === 'admin' && password === 'password') {
-      setIsLoggedIn(true);
-    } else {
-      alert('Invalid credentials!');
+  // Handle login logic
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users?email=${email}&password=${password}`);
+      if (response.data.length > 0) {
+        setIsAuthenticated(true);
+        setView('dashboard');
+      } else {
+        alert('Invalid credentials. Please try again or sign up.');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
     }
   };
-
-  if (!isLoggedIn) {
-    return <LoginPage onLogin={handleLogin} />;
-  }
 
   return (
-    <div className="app">
+    <div className="App">
       <header>
-        <nav>
-          <button onClick={() => handlePageChange('Dashboard')}>Dashboard</button>
-          <button onClick={() => handlePageChange('ProductList')}>Product List</button>
-          <button onClick={() => handlePageChange('AddProduct')}>Add Products</button>
-          <button onClick={() => handlePageChange('ShoppingCart')}>View Cart</button>
-        </nav>
+        <h1>Supermarket Management System</h1>
+        {isAuthenticated && (
+          <nav>
+            <button onClick={() => setView('dashboard')}>Dashboard</button>
+            <button onClick={() => setView('inventoryForm')}>Inventory Form</button>
+            <button onClick={() => setView('searchFilter')}>Search & Filter</button>
+            <button onClick={() => setView('notifications')}>Notifications</button>
+          </nav>
+        )}
       </header>
-
-      {page === 'Dashboard' && (
-        <>
-          <Dashboard salesData={salesData} inventoryData={products} />
-          <Notifications inventoryData={products} salesData={salesData} />
-        </>
-      )}
-
-      {page === 'ProductList' && (
-        <>
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <ProductList products={products} onAddToCart={addToCart} searchTerm={searchTerm} />
-        </>
-      )}
-
-      {page === 'AddProduct' && <InventoryForm onAddProduct={addProduct} />}
-
-      {page === 'ShoppingCart' && <ShoppingCart cart={cart} />}
+      <main>
+        {renderView()}
+      </main>
     </div>
   );
-};
+}
 
 export default App;
+/*import React, { useState } from 'react';
+import './App.css';
+import Dashboard from './Dashboard';
+import InventoryForm from './InventoryForm';
+import SearchFilter from './SearchFilter';
+import LoginPage from './LoginPage';
+import Notifications from './Notifications';
+import SignupPage from './SignupPage'; // Import the SignupPage component
+import axios from 'axios'; // Import axios
+
+function App() {
+  const [view, setView] = useState('login'); // Default to login
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // To track user authentication
+
+  // Render different views based on state
+  const renderView = () => {
+    if (!isAuthenticated) {
+      switch (view) {
+        case 'login':
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+        case 'signup':
+          return <SignupPage handleSignup={handleSignup} />;
+        default:
+          return <LoginPage handleLogin={handleLogin} goToSignup={() => setView('signup')} />;
+      }
+    }
+
+    // If authenticated, show the app views
+    switch (view) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'inventoryForm':
+        return <InventoryForm />;
+      case 'searchFilter':
+        return <SearchFilter />;
+      case 'notifications':
+        return <Notifications />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
+  // Handle login logic
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users?email=${email}&password=${password}`);
+      if (response.data.length > 0) {
+        setIsAuthenticated(true);
+        setView('dashboard');
+      } else {
+        alert('Invalid credentials. Please try again or sign up.');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  };
+
+  // Handle signup logic
+  const handleSignup = async (email, password) => {
+    try {
+      // Post the user data to the server (assume a POST endpoint exists)
+      await axios.post('http://localhost:5000/users', { email, password });
+      alert('Signup successful! Please log in.');
+      setView('login'); // Navigate to the login page after signup
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Signup failed. Please try again.');
+    }
+  };
+
+  return (
+    <div className="App">
+      <header>
+        <h1>Supermarket Management System</h1>
+        {isAuthenticated && (
+          <nav>
+            <button onClick={() => setView('dashboard')}>Dashboard</button>
+            <button onClick={() => setView('inventoryForm')}>Inventory Form</button>
+            <button onClick={() => setView('searchFilter')}>Search & Filter</button>
+            <button onClick={() => setView('notifications')}>Notifications</button>
+          </nav>
+        )}
+      </header>
+      <main>
+        {renderView()}
+      </main>
+    </div>
+  );
+}
+
+export default App;*/

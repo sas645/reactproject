@@ -1,79 +1,144 @@
+// import React, { useState } from 'react';
+// import { motion } from 'framer-motion';
+
+// function SignupPage() {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+
+//   const handleSignup = (e) => {
+//     e.preventDefault();
+//     // Implement signup logic here
+//     alert('Account created successfully!');
+//   };
+
+//   return (
+//     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+//       <h2>Sign Up</h2>
+//       <form onSubmit={handleSignup}>
+//         <label>Username:</label>
+//         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+
+//         <label>Password:</label>
+//         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+//         <button type="submit">Sign Up</button>
+//       </form>
+//     </motion.div>
+//   );
+// }
+
+// export default SignupPage;
 import React, { useState } from 'react';
-import './SignUpPage.css';
+import axios from 'axios';
 
-const SignUpPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+function SignupPage({ goToLogin }) {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const handleSignUp = (e) => {
+  const [password, setPassword] = useState('');
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic validation
-    if (!username || !password || !confirmPassword || !email) {
-      setError('Please fill in all fields');
-      return;
+    try {
+      const response = await axios.post('http://localhost:5000/users', {
+        email,
+        password
+      });
+      if (response.status === 201) {
+        alert('Signup successful! Please log in.');
+        goToLogin();
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
     }
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    // Simulate successful sign-up
-    setSuccess('Sign-up successful! You can now log in.');
-    setError('');
-    setUsername('');
-    setPassword('');
-    setConfirmPassword('');
-    setEmail('');
   };
 
   return (
-    <div className="sign-up-page">
+    <div>
       <h2>Sign Up</h2>
-      {error && <div className="error">{error}</div>}
-      {success && <div className="success">{success}</div>}
-      <form onSubmit={handleSignUp}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
+      <form onSubmit={handleSubmit}>
+        <label>Email: </label>
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <br />
+        <label>Password: </label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <br />
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="#" onClick={goToLogin}>Login here</a></p>
+    </div>
+  );
+}
+
+export default SignupPage;
+
+/*import React, { useState } from 'react';
+import axios from 'axios';
+
+function SignUpPage({ handleSignup }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newUser = { email, password };
+    
+    axios.post('http://localhost:5000/users', newUser)
+      .then(() => handleSignup(newUser))
+      .catch((error) => console.error('Error:', error));
+  };
+
+  return (
+    <div className="App">
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Email: </label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label>Password: </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit">Sign Up</button>
       </form>
     </div>
   );
-};
+}
 
-export default SignUpPage;
+export default SignUpPage;*/
+/*import React, { useState } from 'react';
+function SignupPage({ handleSignup }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSignup(email, password); // Call the signup handler
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Signup</h2>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Sign Up</button>
+    </form>
+  );
+}
+
+export default SignupPage;*/

@@ -1,22 +1,15 @@
 import React from 'react';
 
-const Dashboard = ({ salesData, inventoryData }) => {
-  const totalSales = salesData.reduce((sum, sale) => sum + sale.amount, 0);
-  const totalItemsSold = salesData.length;
-
+function Dashboard() {
+  // You can fetch data using axios (e.g., sales, inventory levels)
   return (
     <div>
       <h2>Dashboard</h2>
-      <p>Total Sales: ${totalSales.toFixed(2)}</p>
-      <p>Total Items Sold: {totalItemsSold}</p>
-      <h3>Inventory Levels</h3>
-      <ul>
-        {inventoryData.map((item, index) => (
-          <li key={index}>{item.name}: {item.stock} in stock</li>
-        ))}
-      </ul>
+      <p>Overview of sales and inventory levels will go here.</p>
+      {/* Display data from JSON Server here */}
     </div>
   );
-};
+}
 
 export default Dashboard;
+

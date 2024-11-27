@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "4e24",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "c52f",
+      "email": "admin@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "2fd4",
+      "email": "teja@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "8378",
+      "email": "ad@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "1152",
+      "email": "ff@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "a69f",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "1a58",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "bb09",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "294a",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "d084",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "6bac",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "8677",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "2c2a",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "213a",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "bc1c",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "ba23",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "fb60",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "9e9d",
+      "email": "sas@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "94b8",
+      "email": "sas@gmail.com",
+      "password": "123ww"
+    },
+    {
+      "id": "2555",
+      "email": "sas@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "927d",
+      "email": "Sasmita@gg.co",
+      "password": "123"
+    }
+  ],
+  "products": [
+    {
+      "id": "ad3d",
+      "productName": "Taking Tom",
+      "quantity": "100",
+      "price": "249"
+    }
+  ]
+}
